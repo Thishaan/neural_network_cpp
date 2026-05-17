@@ -78,21 +78,35 @@ std::shared_ptr<Tensor> Tensor::operator +(const std::shared_ptr<Tensor>& other)
 
     std::vector<std::vector<float>> other_data =  other->get_data();
 
-    if(my_cols != other_cols  && my_rows != other_rows ){
+    if((my_cols != other_cols  && my_rows != other_rows )
+        ||( other_rows !=1 && other_cols != 1)){
         throw std::invalid_argument("rows and columns don't match ");
     }
 
     std::vector<std::vector<float>> res(my_rows);
 
-
+    if(other_rows !=1 && other_cols != 1){
     for( size_t i =0 ; i < my_rows; ++i){
         for(size_t j =0; j < my_cols; ++j)
             res[i].push_back(other_data[i][j]  + data[i][j]);        
+   }
+  }
+   else{
+        for( size_t i =0 ; i < my_rows; ++i){
+        for(size_t j =0; j < my_cols; ++j)
+            res[i].push_back(other_data[0][0]  + data[i][j]);        
+        }    
     }
-
-
     t.set_data(res);
     return std::make_shared<Tensor>(t);
+}
+
+
+
+void Tensor::zero_gradient(){
+
+
+
 }
 
 

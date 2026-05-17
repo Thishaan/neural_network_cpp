@@ -13,6 +13,8 @@ private:
     std::vector<int> dims;
     std::vector<std::vector<float> > data;
     _shape * tensor_shape; 
+    bool gradient_required;
+
 
 public:
     Tensor();
@@ -42,6 +44,7 @@ public:
 
     void set_data(std::vector<std::vector<float>> data_to_set);
 
+    void zero_gradient();
 
  
 };
