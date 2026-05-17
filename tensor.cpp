@@ -48,7 +48,7 @@ std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other)
      for(size_t i = 0;  i < 2; ++i){
          for (size_t j = 0; j < 2; ++j){
             res[i].push_back(data[i][j]*other_data[0][0] + data[i][j+1]*other_data[0][1]);
-             res[i].push_back(data[i+1][j]*other_data[1][0] + data[i+1][j+1]*other_data[1][1]);
+            res[i].push_back(data[i+1][j]*other_data[1][0] + data[i+1][j+1]*other_data[1][1]);
         }
         }
 
