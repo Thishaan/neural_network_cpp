@@ -13,7 +13,7 @@ Tensor::Tensor() {
 std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other) {
     // Implement tensor multiplication logic here
 
-    Tensor t ();
+    Tensor t{};
     size_t my_rows = rows();
     size_t my_cols = cols();
 
@@ -46,9 +46,11 @@ std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other)
     // case of 2d x 2d;
     else{
 
-        for(size_t i = 0;  i < 2; ++i){
-        for (size_t j = 0; j < 2; ++j){
+     for(size_t i = 0;  i < 2; ++i){
+         for (size_t j = 0; j < 2; ++j){
             res[i].push_back(data[i][j]*other_data[0][10] + data[i][j]*other_data[0][1]);
+             res[i].push_back(data[i][j]*other_data[0][10] + data[i][j]*other_data[0][1]);
+
         }
         }
 
@@ -64,12 +66,23 @@ std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other)
  void Tensor::set_data(std::vector<std::vector<float>> data_to_set){
         data =  data_to_set;
  }
+
+ 
 std::shared_ptr<Tensor> Tensor::operator +(const std::shared_ptr<Tensor>& other)  {
     // Implement tensor addition logic here
+    Tensor t{};
+    size_t my_rows = rows();
+    size_t my_cols = cols();
+
+    size_t other_rows = other->rows();
+    size_t other_cols = other->cols();
+
+    if(my_cols != other_cols  && my_rows != other_rows ){
+        throw std::invalid_argument("rows and columns don't match ");
+    }
 
 
-    Tensor t;
-    return std::make_shared<Tensor>();
+    return std::make_shared<Tensor>(t);
 }
 
 
