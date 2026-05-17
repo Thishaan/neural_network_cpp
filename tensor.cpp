@@ -45,12 +45,10 @@ std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other)
 
     // case of 2d x 2d;
     else{
-
      for(size_t i = 0;  i < 2; ++i){
          for (size_t j = 0; j < 2; ++j){
-            res[i].push_back(data[i][j]*other_data[0][10] + data[i][j]*other_data[0][1]);
-             res[i].push_back(data[i][j]*other_data[0][10] + data[i][j]*other_data[0][1]);
-
+            res[i].push_back(data[i][j]*other_data[0][0] + data[i][j]*other_data[0][1]);
+             res[i].push_back(data[i][j]*other_data[1][0] + data[i][j]*other_data[1][1]);
         }
         }
 
@@ -67,7 +65,7 @@ std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other)
         data =  data_to_set;
  }
 
- 
+
 std::shared_ptr<Tensor> Tensor::operator +(const std::shared_ptr<Tensor>& other)  {
     // Implement tensor addition logic here
     Tensor t{};
@@ -77,11 +75,23 @@ std::shared_ptr<Tensor> Tensor::operator +(const std::shared_ptr<Tensor>& other)
     size_t other_rows = other->rows();
     size_t other_cols = other->cols();
 
+
+    std::vector<std::vector<float>> other_data =  other->get_data();
+
     if(my_cols != other_cols  && my_rows != other_rows ){
         throw std::invalid_argument("rows and columns don't match ");
     }
 
+    std::vector<std::vector<float>> res;
 
+
+    for( size_t i =0 ; i < my_rows; ++i){
+        for(size_t j =0; j < my_cols; ++j)
+            res[i][j] += (other_data[i][j]  + data[i][j]); 
+    }
+
+
+    t.set_data(res);
     return std::make_shared<Tensor>(t);
 }
 
