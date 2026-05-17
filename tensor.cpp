@@ -47,8 +47,8 @@ std::shared_ptr<Tensor> Tensor::operator *(const std::shared_ptr<Tensor>& other)
     else{
      for(size_t i = 0;  i < 2; ++i){
          for (size_t j = 0; j < 2; ++j){
-            res[i].push_back(data[i][j]*other_data[0][0] + data[i][j]*other_data[0][1]);
-             res[i].push_back(data[i][j]*other_data[1][0] + data[i][j]*other_data[1][1]);
+            res[i].push_back(data[i][j]*other_data[0][0] + data[i][j+1]*other_data[0][1]);
+             res[i].push_back(data[i+1][j]*other_data[1][0] + data[i+1][j+1]*other_data[1][1]);
         }
         }
 
@@ -82,12 +82,12 @@ std::shared_ptr<Tensor> Tensor::operator +(const std::shared_ptr<Tensor>& other)
         throw std::invalid_argument("rows and columns don't match ");
     }
 
-    std::vector<std::vector<float>> res;
+    std::vector<std::vector<float>> res(my_rows);
 
 
     for( size_t i =0 ; i < my_rows; ++i){
         for(size_t j =0; j < my_cols; ++j)
-            res[i][j] += (other_data[i][j]  + data[i][j]); 
+            res[i].push_back(other_data[i][j]  + data[i][j]);        
     }
 
 
