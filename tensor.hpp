@@ -11,14 +11,13 @@ typedef struct shape{
 class Tensor {
 private:
     std::vector<int> dims;
-    std::vector<float> data;
+    std::vector<std::vector<float> > data;
     _shape * tensor_shape; 
 
 public:
-    Tensor() = default;
+    Tensor();
     Tensor(const std::vector<int>& dims);
-    
-    bool validate_dims(const std::vector<int>& dims) const;
+    //~Tensor();
 
     std::shared_ptr<Tensor> operator*(const std::shared_ptr<Tensor>& other);
     std::shared_ptr<Tensor> operator+(const std::shared_ptr<Tensor>& other);
@@ -27,7 +26,7 @@ public:
         return dims;
     }
 
-    inline const std::vector<float>& get_data() const {
+    inline const std::vector<std::vector<float>>& get_data() const {
         return data;
     }
     
@@ -38,4 +37,11 @@ public:
     size_t cols() const {
         return tensor_shape->cols;
     }
+
+
+
+    void set_data(std::vector<std::vector<float>> data_to_set);
+
+
+ 
 };
